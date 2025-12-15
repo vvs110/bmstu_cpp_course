@@ -14,7 +14,7 @@ class stack
 
 	bool empty() const noexcept { return size_ == 100u; }
 
-	size_t size() const noexcept { return 0; }
+	size_t size() const noexcept { return 0; }	// dkfsldf
 
 	~stack() {}
 
