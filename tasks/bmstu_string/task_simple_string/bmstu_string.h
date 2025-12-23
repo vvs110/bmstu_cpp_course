@@ -20,11 +20,25 @@ class simple_basic_string
 	/// Конструктор по умолчанию
 	simple_basic_string() : ptr_(new T[1]{0}), size_(0) {}
 
-	simple_basic_string(size_t size) : ptr_(new T[size + 1]), size_(size) {}
+	simple_basic_string(size_t size) : ptr_(new T[size + 1]), size_(size)
+	{
+		T space = T(' ');
+		for (auto i = 0; i < size_; ++i)
+		{
+			ptr_[i] = space;
+		}
+		ptr_[size_] = T(0);
+	}
 
 	simple_basic_string(std::initializer_list<T> il)
 		: ptr_(new T[il.size() + 1]), size_(il.size())
 	{
+		for (auto i = 0u; i < il.size(); ++i)
+		{
+			*(ptr_ + i) = *(il.begin() + i);
+		}
+		size_ = il.size() + 1;
+		*(ptr_ + size_) = T(0);
 	}
 
 	/// Конструктор с параметром си-с
@@ -42,7 +56,7 @@ class simple_basic_string
 	/// Геттер на си-строку
 	const T* c_str() const { return ptr_; }
 
-	size_t size() const { return 0; }
+	size_t size() const { return size_; }
 
 	/// Оператор копирующего присваивания
 	simple_basic_string& operator=(simple_basic_string&& other)
